@@ -4,7 +4,6 @@ from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 from rest_framework.exceptions import AuthenticationFailed
 
-
 USER_MODEL = get_user_model()
 
 
@@ -53,3 +52,8 @@ class LoginSerializer(serializers.ModelSerializer):
         model = USER_MODEL
         fields = '__all__'
 
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = USER_MODEL
+        fields = ('id', 'username', 'first_name', 'last_name', 'email')
