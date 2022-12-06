@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'core',
     'rest_framework',
     'corsheaders',
+    'social_django'
 ]
 
 MIDDLEWARE = [
@@ -133,6 +134,14 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+#AUTH settings
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.vk.VKOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 AUTH_USER_MODEL = 'core.user'
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+SOCIAL_AUTH_JSONFIELD_ENABLED = True
