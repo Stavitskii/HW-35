@@ -1,18 +1,20 @@
-from rest_framework.generics import CreateAPIView, RetrieveUpdateDestroyAPIView, ListAPIView
-from rest_framework import permissions, filters
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.generics import RetrieveUpdateDestroyAPIView
+from rest_framework import permissions, filters, generics
 from rest_framework.pagination import LimitOffsetPagination
 
-from .models import GoalCategory
-from .serializers import GoalCategoryCreateSerializer, GoalCategorySerializer
+from .filters import GoalDateFilter
+from .models import GoalCategory, Goal
+from .serializers import GoalCategoryCreateSerializer, GoalCategorySerializer, GoalCreateSerializer, GoalSerializer
 
 
-class GoalCategoryCreateView(CreateAPIView):
+class GoalCategoryCreateView(generics.CreateAPIView):
     model = GoalCategory
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = GoalCategoryCreateSerializer
 
 
-class GoalCategoryListView(ListAPIView):
+class GoalCategoryListView(generics.ListAPIView):
     model = GoalCategory
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = GoalCategorySerializer
@@ -43,4 +45,22 @@ class GoalCategoryView(RetrieveUpdateDestroyAPIView):
         instance.is_deleted = True
         instance.save()
         return instance
+
+
+class GoalCreateView(generics.CreateAPIView):
+    model = Goal
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = GoalCreateSerializer
+
+
+class GoalListView(generics.ListAPIView):
+    model = Goal
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = GoalSerializer
+    filter_backends = [
+        DjangoFilterBackend,
+        filters.OrderingFilter,
+        filters.SearchFilter,
+    ]
+    filterset_class = GoalDateFilter
 
