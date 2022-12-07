@@ -63,4 +63,8 @@ class GoalListView(generics.ListAPIView):
         filters.SearchFilter,
     ]
     filterset_class = GoalDateFilter
+    ordering_fields = ["title", "created"]
+    ordering = ["title"]
+    search_fields = ["title"]
+
 
