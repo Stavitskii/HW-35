@@ -1,6 +1,9 @@
 from rest_framework import serializers
-from .models import GoalCategory, Goal
-from core.serializers import ProfileSerializer
+from .models import GoalCategory, Goal, GoalComment
+from todolist.core.serializers import ProfileSerializer
+
+
+# from core.serializers import ProfileSerializer
 
 
 class GoalCategoryCreateSerializer(serializers.ModelSerializer):
@@ -54,3 +57,23 @@ class GoalSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("not owner of category")
 
         return value
+
+
+class GoalCommentCreateSerializer(serializers.ModelSerializer):
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
+    class Meta:
+        model = GoalComment
+        read_only_fields = ("id", "created", "updated", "user")
+        fields = "__all__"
+
+
+class GoalCommentSerializer(serializers.ModelSerializer):
+    # user = UserSerializer(read_only=True)
+    user = ProfileSerializer(read_only=True)
+
+    class Meta:
+        model = GoalComment
+        fields = "__all__"
+        read_only_fields = ("id", "created", "updated", "user")
+
