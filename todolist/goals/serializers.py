@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import GoalCategory, Goal, GoalComment
+from .models import Goal, GoalComment, GoalCategory
 from todolist.core.serializers import ProfileSerializer
 
 

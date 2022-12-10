@@ -12,6 +12,7 @@ class GoalCategory(models.Model):
     is_deleted = models.BooleanField(verbose_name="Удалена", default=False)
     created = models.DateTimeField(verbose_name="Дата создания")
     updated = models.DateTimeField(verbose_name="Дата последнего обновления")
+
     def save(self, *args, **kwargs):
         if not self.id:
             self.created = timezone.now()
@@ -60,9 +61,11 @@ class GoalComment(models.Model):
 
     text = models.TextField(verbose_name="Текст")
     goal = models.ForeignKey(Goal, verbose_name="Цель", on_delete=models.PROTECT, related_name="comments")
-    user = models.ForeignKey('core.User', verbose_name="Пользователь", on_delete=models.PROTECT, related_name="comments")
+    user = models.ForeignKey('core.User', verbose_name="Пользователь", on_delete=models.PROTECT,
+                             related_name="comments")
     created = models.DateTimeField(verbose_name="Дата создания")
     updated = models.DateTimeField(verbose_name="Дата последнего обновления")
+
     def save(self, *args, **kwargs):
         if not self.id:
             self.created = timezone.now()
@@ -102,5 +105,3 @@ class Goal(models.Model):
             self.created = timezone.now()
         self.updated = timezone.now()
         return super().save(*args, **kwargs)
-
-

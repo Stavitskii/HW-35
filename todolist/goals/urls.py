@@ -2,7 +2,7 @@ from django.urls import path
 
 from . import views
 
-#from goals import views
+#from todolist.goals import views
 
 
 urlpatterns = [
