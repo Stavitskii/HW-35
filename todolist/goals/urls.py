@@ -1,8 +1,6 @@
 from django.urls import path
 
-from . import views
-
-#from todolist.goals import views
+from goals import views
 
 
 urlpatterns = [

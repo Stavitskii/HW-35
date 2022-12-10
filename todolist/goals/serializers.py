@@ -1,9 +1,7 @@
 from rest_framework import serializers
+
+from core.serializers import ProfileSerializer
 from .models import Goal, GoalComment, GoalCategory
-from todolist.core.serializers import ProfileSerializer
-
-
-# from core.serializers import ProfileSerializer
 
 
 class GoalCategoryCreateSerializer(serializers.ModelSerializer):
@@ -76,4 +74,3 @@ class GoalCommentSerializer(serializers.ModelSerializer):
         model = GoalComment
         fields = "__all__"
         read_only_fields = ("id", "created", "updated", "user")
-
